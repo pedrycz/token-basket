@@ -1,7 +1,7 @@
 # TokenBasket
 
 [![NPM Package](https://img.shields.io/npm/v/token-basket.svg)](https://www.npmjs.org/package/token-basket)
-[![License](https://img.shields.io/badge/License-MIT-blue)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/github/license/pedrycz/token-basket)](https://github.com/pedrycz/token-basket/blob/master/LICENSE)
 
 ERC20 token representing a fixed set of other ERC20 tokens with predefined weights.
 
@@ -12,14 +12,16 @@ TokenBasket is for the crypto market what ETF is for the stock market. It works 
 ## Example usage
 
 ```solidity
+pragma solidity ^0.8.0;
+
 import "token-basket/contracts/TokenBasket.sol";
 
 contract ExampleTokenBasket is TokenBasket {
 
-  constructor () TokenBasket ("Example Token Basket", "ETB", [
-      0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2, // WETH
-      0xB8c77482e45F1F44dE1745F52C74426C631bDD52, // BNB
-    ], [ 2, 3 ]) {
+  constructor () TokenBasket ("Example Token Basket", "ETB",
+      [ 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2, // WETH
+      0xB8c77482e45F1F44dE1745F52C74426C631bDD52 ], // BNB
+      [ 2, 3 ]) {
   }
 
 }
@@ -42,4 +44,4 @@ TBD
 
 ## License
 
-TokenBasket is released under the MIT License.
+TokenBasket is released under the [MIT License](https://github.com/pedrycz/token-basket/blob/master/LICENSE).
