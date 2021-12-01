@@ -3,11 +3,11 @@
 [![NPM Package](https://img.shields.io/npm/v/token-basket.svg)](https://www.npmjs.org/package/token-basket)
 [![License](https://img.shields.io/github/license/pedrycz/token-basket)](https://github.com/pedrycz/token-basket/blob/master/LICENSE)
 
-ERC20 token representing a fixed set of other ERC20 tokens with predefined weights.
+ERC20 (BEP20) token representing a fixed set of other tokens with predefined weights.
 
 ## Overview
 
-TokenBasket is for the crypto market what ETF is for the stock market. It works like a wrapper for token collections, making them much more convienient and cost-effective to transfer.
+TokenBasket is for the crypto market what ETF is for the stock market. It works like a wrapper for token collections, making them much more convenient and cost-effective to transfer.
 
 ## Example usage
 

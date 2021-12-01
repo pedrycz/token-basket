@@ -3,8 +3,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract TokenBasket is ERC20 {
+contract TokenBasket is ERC20, Ownable {
 
   // IERC20 can be replaced with something less restrictive, only transfer(...) and transferFrom(...) methods are needed
   IERC20 [] public _holdings;
@@ -28,6 +29,10 @@ contract TokenBasket is ERC20 {
       _holdings[i].transfer(_msgSender(), amount * _weights[i]);
     }
     _burn(_msgSender(), amount);
+  }
+
+  function getOwner() public view virtual returns (address) {
+    return owner();
   }
 
 }
