@@ -3,7 +3,7 @@
 [![NPM Package](https://img.shields.io/npm/v/token-basket.svg)](https://www.npmjs.org/package/token-basket)
 [![License](https://img.shields.io/github/license/pedrycz/token-basket)](https://github.com/pedrycz/token-basket/blob/master/LICENSE)
 
-ERC20 (BEP20) token representing a fixed set of other tokens with predefined weights.
+ERC20 (BEP20) token representing a fixed set of other tokens with predefined weights
 
 ## Overview
 

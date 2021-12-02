@@ -1,23 +1,23 @@
 {
   "name": "token-basket",
-  "description": "ERC20 token representing a fixed set of other ERC20 tokens with predefined weights",
+  "description": "ERC20 (BEP20) token representing a fixed set of other tokens with predefined weights",
   "version": "0.1.0",
-  "files": [
-    "/contracts/**/*.sol"
-  ],
+  "author": "Piotr Pedrycz",
+  "license": "MIT",
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "compile": "npx truffle compile",
-    "test": "npx truffle test"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/pedrycz/token-basket.git"
   },
-  "author": "Piotr Pedrycz",
-  "license": "MIT",
+  "files": [
+    "/contracts/**/*.sol"
+  ],
+  "scripts": {
+    "compile": "npx truffle compile",
+    "test": "npx truffle test"
+  },
   "dependencies": {
     "@openzeppelin/contracts": "^4.4.0"
   },
