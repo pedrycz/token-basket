@@ -4,7 +4,6 @@ const TokenMock = artifacts.require("TokenMock");
 // should be invoked on a fresh development network with "a a a a a a a a a a a a" mnemonic
 
 contract("TokenBasket optimized test", accounts => {
-
   let holdings;
   let tokenBasket;
 
@@ -15,5 +14,4 @@ contract("TokenBasket optimized test", accounts => {
     console.log(" - deploy: " + deploymentReceipt.gasUsed);
     assert.isBelow(deploymentReceipt.gasUsed, 2_100_000, "Deployment cost is bigger than 2100000");
   });
-
 });

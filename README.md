@@ -19,8 +19,6 @@ holdings:
   - Binance Coin (BNB), weight: 3
 ```
 
-
-
 Each unit of ETB (Example Token Basket) is pegged to 2 units of WETH and 3 units of BNB (you need to deposit 2 WETH + 3 BNB in order to mint 1 ETB, analogically you will be rewarded 2 WETH + 3 BNB for burning 1 ETB).
 
 ## Lifecycle and gas usage estimation
@@ -53,7 +51,7 @@ contract ExampleTokenBasket is TokenBasket {
 EXAMPLE_TOKEN_BASKET_ADDRESS = new ExampleTokenBasket();
 ```
 
-Gas usage for the deployment can be roughly estimated as **2,105,000 + 42,000 per holding** so in above case it would be around 2,189,000.
+Gas usage for the deployment can be roughly estimated as **1,187,000 + 42,000 per holding** (compiler optimized for 2000 runs) so in above case it would be around 1,271,000.
 
 ### Minting
 
@@ -78,7 +76,7 @@ Under the hood, this function transfers approved holdings to the TokenBasket con
 
 ### Transfer
 
-Transfers and operations connected to allowance are intended to be the most optimized. They shouldn't use more gas than analogical operations for other ERC20 (BEP20) tokens, usually **between 25,000 and 65,000**.
+Transfers and operations related to allowance are intended to be the most optimized. They shouldn't use more gas than analogical operations for other simple ERC20 (BEP20) tokens, usually **between 25,000 and 65,000**.
  
 ### Burning
  
@@ -92,11 +90,9 @@ It decreases burner's balance and transfers underlying tokens to his address. Ga
 
 ## Gas usage optimization
 
-Gas usage can be slightly optimized by storing holdings and weights in a constant array.
-In order to achieve that, instead of calling TokenBasket constructor, new contract (extending AbstractTokenBasket) needs to be created. 
+Gas usage can be slightly optimized by storing holdings and weights in a constant array. In order to achieve that, instead of calling TokenBasket constructor, new contract (extending AbstractTokenBasket) needs to be created. This can save around **50,000** gas **per holding** during the deployment.
 
- * deployment gas usage can be reduced to **2,010,000** + **17,000** per every holding
- * minting and burning gas usage can be optimized by few % as well, depending on the underlying tokens
+However, this is not a recommended solution as it involves some code changes which may be error prone.
 
 ## Projects using TokenBasket
 

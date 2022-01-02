@@ -4,7 +4,6 @@ const TokenBasket = artifacts.require("TokenBasket");
 const TokenMock = artifacts.require("TokenMock");
 
 contract("TokenBasket functional test", accounts => {
-
   let holdings;
   let tokenBasket;
 
@@ -39,5 +38,4 @@ contract("TokenBasket functional test", accounts => {
     let balancesOfAccount1 = await Promise.all(holdings.map(token => token.balanceOf(accounts[1])));
     assert.deepEqual(balancesOfAccount1.map(balance => balance.toNumber()), [6, 9], "Balances of account 1 are incorrect");
   });
-
 });

@@ -2,7 +2,6 @@ const TokenBasket = artifacts.require("TokenBasket");
 const TokenMock = artifacts.require("TokenMock");
 
 contract("TokenBasket performance test", accounts => {
-
   async function reportGenerator(nHoldings, maxDeploymentCost) {
     console.log("Token basket of " + nHoldings + " holdings:");
     let holdings = await Promise.all(Array.from(Array(nHoldings).keys()).map(key => TokenMock.new(key, key)));
@@ -33,15 +32,14 @@ contract("TokenBasket performance test", accounts => {
   }
 
   it("verify performance of an empty basket", async () => {
-    return reportGenerator(0, 2_050_000);
+    return reportGenerator(0, 1_160_000);
   });
 
   it("verify performance of a single-holding basket", async () => {
-    return reportGenerator(1, 2_150_000);
+    return reportGenerator(1, 1_240_000);
   });
 
   it("verify performance of a basket consisting of 5 holdings", async () => {
-    return reportGenerator(5, 2_315_000);
+    return reportGenerator(5, 1_410_000);
   });
-
 });
