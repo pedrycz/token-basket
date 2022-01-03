@@ -1,7 +1,7 @@
 {
   "name": "token-basket",
   "description": "ERC20 (BEP20) token representing a fixed set of other tokens with predefined weights",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Piotr Pedrycz",
   "license": "MIT",
   "publishConfig": {
