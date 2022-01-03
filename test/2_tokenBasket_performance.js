@@ -5,7 +5,7 @@ contract("TokenBasket performance test", accounts => {
   async function reportGenerator(nHoldings, maxDeploymentCost) {
     console.log("Token basket of " + nHoldings + " holdings:");
     let holdings = await Promise.all(Array.from(Array(nHoldings).keys()).map(key => TokenMock.new(key, key)));
-    let tokenBasket = await TokenBasket.new("Example Token Basket", "ETB", holdings.map(token => token.address), new Array(holdings.length).fill(2));
+    let tokenBasket = await TokenBasket.new("Example Token Basket", "ETB", 10, holdings.map(token => token.address), new Array(holdings.length).fill(2));
     let deploymentReceipt = await web3.eth.getTransactionReceipt(tokenBasket.transactionHash);
     console.log(" - deploy: " + deploymentReceipt.gasUsed);
     assert.isBelow(deploymentReceipt.gasUsed, maxDeploymentCost, "Deployment cost is bigger than " + maxDeploymentCost);

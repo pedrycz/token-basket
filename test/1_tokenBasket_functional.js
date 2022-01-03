@@ -9,7 +9,7 @@ contract("TokenBasket functional test", accounts => {
 
   beforeEach(async () => {
     holdings = await Promise.all([TokenMock.new("Token Mock 1", "TM1"), TokenMock.new("Token Mock 2", "TM2")]);
-    tokenBasket = await TokenBasket.new("Example Token Basket", "ETB", holdings.map(token => token.address), [2, 3]);
+    tokenBasket = await TokenBasket.new("Example Token Basket", "ETB", 10, holdings.map(token => token.address), [2, 3]);
     await Promise.all(holdings.map(token => token.mint(20)));
     await Promise.all(holdings.map(token => token.approve(tokenBasket.address, 15)));
   });

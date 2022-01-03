@@ -5,16 +5,15 @@ pragma solidity ^0.8.0;
 import "../contracts/AbstractTokenBasket.sol";
 
 contract OptimizedTokenBasket is AbstractTokenBasket {
-
-  constructor () ERC20 ("Optimized Token Basket", "OTB") {
+  constructor () BEP20 ("Optimized Token Basket", "OTB") {
   }
 
   function basketSize() public override pure returns (uint256) {
     return 5;
   }
 
-  function holdings(uint256 index) public override pure returns (ITokenBasketHolding) {
-    return ITokenBasketHolding([
+  function holdings(uint256 index) public override pure returns (IERC20) {
+    return IERC20([
       0x8E1891407f03b77863da0b1430CbFB24ad687620,
       0x906a6D320f040F113d145d9a5bA086236EeDc1b2,
       0xbB209218b8562C9b66c076f772Cb4e8ec8167eD9,
@@ -26,5 +25,4 @@ contract OptimizedTokenBasket is AbstractTokenBasket {
   function weights(uint256 index) public override pure returns (uint256) {
     return [1, 2, 3, 4, 5][index];
   }
-
 }
