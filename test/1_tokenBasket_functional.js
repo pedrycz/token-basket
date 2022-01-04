@@ -25,29 +25,22 @@ contract("TokenBasket functional test", accounts => {
 
   it("should mint, transfer and burn tokens", async () => {
     await tokenBasket.mint(5);
-    let decimals = await tokenBasket.decimals();
-    assert.equal(decimals, 10, "Balance of tokenBasket is incorrect");
-    let basketSize = await tokenBasket.basketSize();
-    assert.equal(basketSize, 2, "Size of tokenBasket is incorrect");
-    let holding0 = await tokenBasket.holdings(0);
-    assert.equal(holding0, holdings[0].address, "1st tokenBasket holding is incorrect");
-    let holding1 = await tokenBasket.holdings(1);
-    assert.equal(holding1, holdings[1].address, "2nd tokenBasket holding is incorrect");
-    let weight0 = await tokenBasket.weights(0);
-    assert.equal(weight0, 2, "1st tokenBasket weight is incorrect");
-    let weight1 = await tokenBasket.weights(1);
-    assert.equal(weight1, 3, "2nd tokenBasket weight is incorrect");
-    let balanceOfAccount0 = await tokenBasket.balanceOf(accounts[0]);
-    assert.equal(balanceOfAccount0, 5, "Balance of account 0 is incorrect");
-    let balancesOfAccount0 = await Promise.all(holdings.map(token => token.balanceOf(accounts[0])));
-    assert.deepEqual(balancesOfAccount0.map(balance => balance.toNumber()), [10, 5], "Balances of account 0 are incorrect");
+    assert.equal((await tokenBasket.decimals()), 10, "Decimals of tokenBasket is incorrect");
+    assert.equal((await tokenBasket.basketSize()), 2, "Size of tokenBasket is incorrect");
+    assert.equal((await tokenBasket.holdings(0)), holdings[0].address, "1st tokenBasket holding is incorrect");
+    assert.equal((await tokenBasket.holdings(1)), holdings[1].address, "2nd tokenBasket holding is incorrect");
+    assert.equal((await tokenBasket.weights(0)), 2, "1st tokenBasket weight is incorrect");
+    assert.equal((await tokenBasket.weights(1)), 3, "2nd tokenBasket weight is incorrect");
+    assert.equal((await tokenBasket.balanceOf(accounts[0])), 5, "Balance of account 0 is incorrect");
+    assert.deepEqual((await Promise.all(holdings.map(h => h.balanceOf(accounts[0])))).map(b => b.toNumber()), [10, 5],
+      "Balances of account 0 are incorrect");
+
     await tokenBasket.transfer(accounts[1], 4);
-    let balanceOfAccount1 = await tokenBasket.balanceOf(accounts[1]);
-    assert.equal(balanceOfAccount1, 4, "Balance of account 1 is incorrect");
+    assert.equal((await tokenBasket.balanceOf(accounts[1])), 4, "Balance of account 1 is incorrect");
+
     await tokenBasket.burn(3, {from: accounts[1]});
-    balanceOfAccount1 = await tokenBasket.balanceOf(accounts[1]);
-    assert.equal(balanceOfAccount1, 1, "Balance of account 1 is incorrect");
-    let balancesOfAccount1 = await Promise.all(holdings.map(token => token.balanceOf(accounts[1])));
-    assert.deepEqual(balancesOfAccount1.map(balance => balance.toNumber()), [6, 9], "Balances of account 1 are incorrect");
+    assert.equal((await tokenBasket.balanceOf(accounts[1])), 1, "Balance of account 1 is incorrect");
+    assert.deepEqual((await Promise.all(holdings.map(h => h.balanceOf(accounts[1])))).map(b => b.toNumber()), [6, 9],
+      "Balances of account 1 are incorrect");
   });
 });

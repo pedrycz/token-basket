@@ -5,30 +5,22 @@ contract("TokenBasket performance test", accounts => {
   async function reportGenerator(nHoldings, maxDeploymentCost) {
     console.log("Token basket of " + nHoldings + " holdings:");
     let holdings = await Promise.all(Array.from(Array(nHoldings).keys()).map(key => TokenMock.new(key, key)));
-    let tokenBasket = await TokenBasket.new("Example Token Basket", "ETB", 10, holdings.map(token => token.address), new Array(holdings.length).fill(2));
-    let deploymentReceipt = await web3.eth.getTransactionReceipt(tokenBasket.transactionHash);
-    console.log(" - deploy: " + deploymentReceipt.gasUsed);
-    assert.isBelow(deploymentReceipt.gasUsed, maxDeploymentCost, "Deployment cost is bigger than " + maxDeploymentCost);
-    await Promise.all(holdings.map(token => token.mint(50)));
-    await Promise.all(holdings.map(token => token.approve(tokenBasket.address, 50)));
-    let mintResult = await tokenBasket.mint(10);
-    console.log(" - mint: " + mintResult.receipt.gasUsed);
-    let approve1Result = await tokenBasket.approve(accounts[1], 10);
-    console.log(" - 1st approve: " + approve1Result.receipt.gasUsed);
-    let approve2Result = await tokenBasket.approve(accounts[1], 10);
-    console.log(" - 2nd approve: " + approve2Result.receipt.gasUsed);
-    let transferFrom1Result = await tokenBasket.transferFrom(accounts[0], accounts[1], 1, {from: accounts[1]});
-    console.log(" - 1st transfer from: " + transferFrom1Result.receipt.gasUsed);
-    let transferFrom2Result = await tokenBasket.transferFrom(accounts[0], accounts[1], 1, {from: accounts[1]});
-    console.log(" - 2nd transfer from: " + transferFrom2Result.receipt.gasUsed);
-    let transfer1Result = await tokenBasket.transfer(accounts[1], 1);
-    console.log(" - 1st transfer: " + transfer1Result.receipt.gasUsed);
-    let transfer2Result = await tokenBasket.transfer(accounts[1], 1);
-    console.log(" - 2nd transfer: " + transfer2Result.receipt.gasUsed);
-    let burn1Result = await tokenBasket.burn(1, {from: accounts[1]});
-    console.log(" - 1st burn: " + burn1Result.receipt.gasUsed);
-    let burn2Result = await tokenBasket.burn(1, {from: accounts[1]});
-    console.log(" - 2nd burn: " + burn2Result.receipt.gasUsed);
+    let tokenBasket = await TokenBasket.new("Example Token Basket", "ETB", 10, holdings.map(h => h.address), new Array(holdings.length).fill(2));
+    let gasUsed = (await web3.eth.getTransactionReceipt(tokenBasket.transactionHash)).gasUsed;
+    console.log(" - deploy: " + gasUsed);
+    assert.isBelow(gasUsed, maxDeploymentCost, "Deployment cost is bigger than " + maxDeploymentCost);
+
+    await Promise.all(holdings.map(h => h.mint(50)));
+    await Promise.all(holdings.map(h => h.approve(tokenBasket.address, 50)));
+    console.log(" - mint: " + (await tokenBasket.mint(10)).receipt.gasUsed);
+    console.log(" - 1st approve: " + (await tokenBasket.approve(accounts[1], 10)).receipt.gasUsed);
+    console.log(" - 2nd approve: " + (await tokenBasket.approve(accounts[1], 10)).receipt.gasUsed);
+    console.log(" - 1st transfer from: " + (await tokenBasket.transferFrom(accounts[0], accounts[1], 1, {from: accounts[1]})).receipt.gasUsed);
+    console.log(" - 2nd transfer from: " + (await tokenBasket.transferFrom(accounts[0], accounts[1], 1, {from: accounts[1]})).receipt.gasUsed);
+    console.log(" - 1st transfer: " + (await tokenBasket.transfer(accounts[1], 1)).receipt.gasUsed);
+    console.log(" - 2nd transfer: " + (await tokenBasket.transfer(accounts[1], 1)).receipt.gasUsed);
+    console.log(" - 1st burn: " + (await tokenBasket.burn(1, {from: accounts[1]})).receipt.gasUsed);
+    console.log(" - 2nd burn: " + (await tokenBasket.burn(1, {from: accounts[1]})).receipt.gasUsed);
   }
 
   it("verify performance of an empty basket", async () => {
