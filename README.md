@@ -25,11 +25,12 @@ Each unit of ETB (Example Token Basket) is pegged to 2 units of WETH and 3 units
 
 ### Deployment
  
-TokenBasket constructor takes 4 parameters:
+TokenBasket constructor takes 5 parameters:
  1. token basket name
  2. token basket symbol
- 3. array of holdings (addresses of underlying token contracts)
- 4. array of holding weights in the basket
+ 3. number of decimal places
+ 4. array of holdings (addresses of underlying token contracts)
+ 5. array of holding weights in the basket
 
 That's how Example Token Basket could be deployed:
 
@@ -39,7 +40,7 @@ pragma solidity ^0.8.0;
 import "token-basket/contracts/TokenBasket.sol";
 
 contract ExampleTokenBasket is TokenBasket {
-  constructor () TokenBasket ("Example Token Basket", "ETB",
+  constructor () TokenBasket ("Example Token Basket", "ETB", 18
       [ 0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2, // WETH address
       0xB8c77482e45F1F44dE1745F52C74426C631bDD52 ], // BNB address
       [ 2, 3 ]) {

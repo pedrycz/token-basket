@@ -11,16 +11,16 @@ abstract contract AbstractTokenBasket is BEP20 {
 
   function weights(uint256 index) public virtual view returns (uint256);
 
-  function mint(uint256 amount) public {
+  function mint(address account, uint256 amount) public {
     for (uint256 i = 0; i < basketSize(); i++) {
       holdings(i).transferFrom(_msgSender(), address(this), amount * weights(i));
     }
-    _mint(_msgSender(), amount);
+    _mint(account, amount);
   }
 
-  function burn(uint256 amount) public {
+  function burn(address account, uint256 amount) public {
     for (uint256 i = 0; i < basketSize(); i++) {
-      holdings(i).transfer(_msgSender(), amount * weights(i));
+      holdings(i).transfer(account, amount * weights(i));
     }
     _burn(_msgSender(), amount);
   }

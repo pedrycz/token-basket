@@ -12,15 +12,15 @@ contract("TokenBasket performance test", accounts => {
 
     await Promise.all(holdings.map(h => h.mint(50)));
     await Promise.all(holdings.map(h => h.approve(tokenBasket.address, 50)));
-    console.log(" - mint: " + (await tokenBasket.mint(10)).receipt.gasUsed);
+    console.log(" - mint: " + (await tokenBasket.mint(accounts[0], 10)).receipt.gasUsed);
     console.log(" - 1st approve: " + (await tokenBasket.approve(accounts[1], 10)).receipt.gasUsed);
     console.log(" - 2nd approve: " + (await tokenBasket.approve(accounts[1], 10)).receipt.gasUsed);
     console.log(" - 1st transfer from: " + (await tokenBasket.transferFrom(accounts[0], accounts[1], 1, {from: accounts[1]})).receipt.gasUsed);
     console.log(" - 2nd transfer from: " + (await tokenBasket.transferFrom(accounts[0], accounts[1], 1, {from: accounts[1]})).receipt.gasUsed);
     console.log(" - 1st transfer: " + (await tokenBasket.transfer(accounts[1], 1)).receipt.gasUsed);
     console.log(" - 2nd transfer: " + (await tokenBasket.transfer(accounts[1], 1)).receipt.gasUsed);
-    console.log(" - 1st burn: " + (await tokenBasket.burn(1, {from: accounts[1]})).receipt.gasUsed);
-    console.log(" - 2nd burn: " + (await tokenBasket.burn(1, {from: accounts[1]})).receipt.gasUsed);
+    console.log(" - 1st burn: " + (await tokenBasket.burn(accounts[1], 1, {from: accounts[1]})).receipt.gasUsed);
+    console.log(" - 2nd burn: " + (await tokenBasket.burn(accounts[1], 1, {from: accounts[1]})).receipt.gasUsed);
   }
 
   it("verify performance of an empty basket", async () => {
